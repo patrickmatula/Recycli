@@ -1,4 +1,4 @@
-﻿# Recycli ![recycli fluent icon](https://github.com/patrickmatula/Recycli/blob/main/Resources/delete-100px.svg)
+﻿# Recycli <img src="https://github.com/patrickmatula/Recycli/blob/main/Resources/delete-100px.svg" width="48">
 
 Recycli is a tool to restore or delete files from the recycle bin.
 
