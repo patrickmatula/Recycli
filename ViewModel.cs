@@ -91,7 +91,13 @@ namespace Recycli
                 .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
             if (!string.IsNullOrEmpty(informationalVersion))
+            {
+                // Remove everything after '+' if present
+                var plusIndex = informationalVersion.IndexOf('+');
+                if (plusIndex >= 0)
+                    return informationalVersion.Substring(0, plusIndex);
                 return informationalVersion;
+            }
 
             var version = assembly.GetName().Version?.ToString();
             return version ?? "unknown";
