@@ -2,6 +2,8 @@
 
 Recycli is a tool to restore or delete files from the recycle bin.
 
+![Recycli Application](https://github.com/patrickmatula/Recycli/blob/main/Resources/recycli_readme.png)
+
 ## Why does this tool exist?
 
 This tool can be helpful in a situation where you delete a file with admin rights and it ended up in the Recycle Bin, but you can't easily restore it because explorer.exe is always running with user rights.
@@ -9,7 +11,6 @@ This tool can be helpful in a situation where you delete a file with admin right
 ## Your code sucks!
 
 That's very likely, because I'm not a professional developer. If you have any suggestions, improvements or bug reports, please [open an issue](https://github.com/patrickmatula/Recycli/issues) on GitHub.  
-You can also participate in the [Code Review Stack Exchange](...) thread.
 
 ## Your design sucks!
 
