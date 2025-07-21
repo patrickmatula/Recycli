@@ -14,7 +14,7 @@ That's very likely, because I'm not a professional developer. If you have any su
 
 ## Your design sucks!
 
-The goal is to use the Fluent Design, so it looks like a native Windows app. If you have any suggestions, improvements or bug reports, please [open an issue](https://github.com/patrickmatula/Recycli/issues) on GitHub.
+That's very likely, because I'm not a professional designer. The goal is to use the Fluent Design, so it looks like a native Windows app. If you have any suggestions, improvements or bug reports, please [open an issue](https://github.com/patrickmatula/Recycli/issues) on GitHub.
 
 ## Logging
 
