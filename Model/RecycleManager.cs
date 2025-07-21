@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Diagnostics;
+using Microsoft.Extensions.Logging;
 using Shell32;
 using System.IO;
 
@@ -9,6 +10,7 @@ namespace Recycli.Model
         private static readonly ILogger? logger = App.Logger;
         public static List<RecycleFile> GetRecycleBinFiles()
         {
+            Guard.IsNotNull(logger);
             List<RecycleFile> recycleBinFiles = new List<RecycleFile>();
             Shell shell = new Shell();
             Folder recycleBin = shell.NameSpace(10); // 10 = Recycle Bin
@@ -41,7 +43,7 @@ namespace Recycli.Model
 
         public static bool RestoreFile(RecycleFile recycleFile)
         {
-
+            Guard.IsNotNull(logger);
             foreach (FolderItemVerb verb in recycleFile.Verbs)
             {
                 if (verb.Name.ToString().Replace("&", "").Trim().Equals("Restore", StringComparison.OrdinalIgnoreCase))
@@ -56,6 +58,7 @@ namespace Recycli.Model
 
         public static void DeleteFile(RecycleFile recycleFile)
         {
+            Guard.IsNotNull(logger);
             /* We don't use the verb "Delete" directly because this results in a confirmation dialog.
              * Instead, we delete the file directly using File.Delete.
              * This is a more straightforward approach for the recycle bin management.

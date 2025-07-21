@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Diagnostics;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 
 namespace Recycli
@@ -26,6 +28,7 @@ namespace Recycli
 
         protected override void OnExit(ExitEventArgs e)
         {
+            Guard.IsNotNull(Logger);
             Logger.LogInformation("Recycli: Application shutting down");
             LoggerFactory?.Dispose();
             base.OnExit(e);

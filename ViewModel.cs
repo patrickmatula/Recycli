@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using Recycli.Model;
@@ -43,6 +44,7 @@ namespace Recycli
         [RelayCommand]
         private void RestoreFile()
         {
+            Guard.IsNotNull(logger);
             if (SelectedFiles.Count != 0)
             {
                 foreach (var file in SelectedFiles)
@@ -57,6 +59,7 @@ namespace Recycli
         [RelayCommand]
         private void DeleteFile()
         {
+            Guard.IsNotNull(logger);
             if (SelectedFiles.Count != 0)
             {
                 foreach (var file in SelectedFiles)
@@ -71,6 +74,7 @@ namespace Recycli
         // Thanks to the MVVM Toolkit, this method will be called automatically when the SearchText property changes.
         partial void OnSearchTextChanged(string value)
         {
+            Guard.IsNotNull(logger);
             if (string.IsNullOrWhiteSpace(value))
             {
                 VisibleRecycleBinFiles = new List<RecycleFile>(AllRecycleBinFiles);
