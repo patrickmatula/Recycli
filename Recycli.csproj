@@ -9,6 +9,7 @@
     <ApplicationIcon>Resources\delete-100px.ico</ApplicationIcon>
     <Version>0.1</Version>
     <Copyright>Patrick Matula</Copyright>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
