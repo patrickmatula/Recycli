@@ -44,22 +44,24 @@ namespace Recycli.Model
         public static bool RestoreFile(RecycleFile recycleFile)
         {
             Guard.IsNotNull(logger);
-            foreach (FolderItemVerb verb in recycleFile.Verbs)
-            {
-                if (verb.Name.ToString().Replace("&", "").Trim().Equals("Restore", StringComparison.OrdinalIgnoreCase))
-                {
-                    logger.LogInformation("Recycli: RestoreFile(): Restore File {value}, verb: {verb}", recycleFile.Name, verb.Name.ToString());
-                    verb.DoIt();
-                    return true;
-                }
-            }
+
+            /*
+             * This works only when the first verb is "Restore".
+             * It seems to work fine on an English and German Windows 11 system.
+             * I don't know if it works on any other languages.
+             */
+            var restoreOperation = (FolderItemVerb)recycleFile.Verbs[0];
+            restoreOperation.DoIt(); 
+           
             return false;
         }
 
         public static void DeleteFile(RecycleFile recycleFile)
         {
             Guard.IsNotNull(logger);
-            /* We don't use the verb "Delete" directly because this results in a confirmation dialog.
+
+            /* 
+             * We don't use the verb "Delete" directly because this results in a confirmation dialog.
              * Instead, we delete the file directly using File.Delete.
              * This is a more straightforward approach for the recycle bin management.
              */
