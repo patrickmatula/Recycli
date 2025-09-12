@@ -1,16 +1,20 @@
-﻿using CommunityToolkit.Diagnostics;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Shell32;
 using System.IO;
 
 namespace Recycli.Model
 {
-    internal class RecycleManager
+    public class RecycleManager
     {
-        private static readonly ILogger? logger = App.Logger;
-        public static List<RecycleFile> GetRecycleBinFiles()
+        private readonly ILogger<RecycleManager> _logger;
+
+        public RecycleManager(ILogger<RecycleManager> logger)
         {
-            Guard.IsNotNull(logger);
+            _logger = logger;
+        }
+
+        public List<RecycleFile> GetRecycleBinFiles()
+        {
             List<RecycleFile> recycleBinFiles = new List<RecycleFile>();
             Shell shell = new Shell();
             Folder recycleBin = shell.NameSpace(10); // 10 = Recycle Bin
@@ -35,16 +39,14 @@ namespace Recycli.Model
                     recycleFile.Verbs.Add(verb);
                 }
 
-                logger.LogInformation("Recycli: GetRecycleBinFiles(): Adding File {value}", recycleFile.Name);
+                _logger.LogInformation("GetRecycleBinFiles(): Adding File {value}", recycleFile.Name);
                 recycleBinFiles.Add(recycleFile);
             }
             return recycleBinFiles;
         }
 
-        public static bool RestoreFile(RecycleFile recycleFile)
+        public bool RestoreFile(RecycleFile recycleFile)
         {
-            Guard.IsNotNull(logger);
-
             /*
              * This works only when the first verb is "Restore".
              * It seems to work fine on an English and German Windows 11 system.
@@ -56,16 +58,14 @@ namespace Recycli.Model
             return false;
         }
 
-        public static void DeleteFile(RecycleFile recycleFile)
+        public void DeleteFile(RecycleFile recycleFile)
         {
-            Guard.IsNotNull(logger);
-
             /* 
              * We don't use the verb "Delete" directly because this results in a confirmation dialog.
              * Instead, we delete the file directly using File.Delete.
              * This is a more straightforward approach for the recycle bin management.
              */
-            logger.LogInformation("Recycli: DeleteFile(): Delete File {value}", recycleFile.Name);
+            _logger.LogInformation("DeleteFile(): Delete File {value}", recycleFile.Name);
             File.Delete(recycleFile.Path);
         }
     }

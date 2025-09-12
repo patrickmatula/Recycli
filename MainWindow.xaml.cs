@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Recycli
@@ -8,7 +9,6 @@ namespace Recycli
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel();
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

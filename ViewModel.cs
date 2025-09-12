@@ -24,12 +24,16 @@ namespace Recycli
         [ObservableProperty]
         private List<RecycleFile> selectedFiles;
 
-        private readonly ILogger? logger = App.Logger;
+        private readonly ILogger<ViewModel> _logger;
+        private readonly RecycleManager _recycleManager;
 
-        public ViewModel()
+        public ViewModel(ILogger<ViewModel> logger, RecycleManager recycleManager)
         {
+            _logger = logger;
+            _recycleManager = recycleManager;
+
             VersionText = $"Version: {GetAppVersion()}";
-            var files = RecycleManager.GetRecycleBinFiles();
+            var files = _recycleManager.GetRecycleBinFiles();
             AllRecycleBinFiles = new List<RecycleFile>(files);
             VisibleRecycleBinFiles = new List<RecycleFile>(files);
             SelectedFiles = new List<RecycleFile>();
@@ -37,20 +41,19 @@ namespace Recycli
 
         private void RefreshStatus()
         {
-            VisibleRecycleBinFiles = RecycleManager.GetRecycleBinFiles();
+            VisibleRecycleBinFiles = _recycleManager.GetRecycleBinFiles();
             SelectedFiles.Clear();
         }
 
         [RelayCommand]
         private void RestoreFile()
         {
-            Guard.IsNotNull(logger);
             if (SelectedFiles.Count != 0)
             {
                 foreach (var file in SelectedFiles)
                 {
-                    logger.LogInformation("Recycli: Restoring file: {FileName}", file.Name);
-                    RecycleManager.RestoreFile(file);
+                    _logger.LogInformation("Recycli: Restoring file: {FileName}", file.Name);
+                    _recycleManager.RestoreFile(file);
                 }
             }
             RefreshStatus();
@@ -59,13 +62,12 @@ namespace Recycli
         [RelayCommand]
         private void DeleteFile()
         {
-            Guard.IsNotNull(logger);
             if (SelectedFiles.Count != 0)
             {
                 foreach (var file in SelectedFiles)
                 {
-                    logger.LogInformation("Recycli: Deleting file: {FileName}", file.Name);
-                    RecycleManager.DeleteFile(file);
+                    _logger.LogInformation("Recycli: Deleting file: {FileName}", file.Name);
+                    _recycleManager.DeleteFile(file);
                 }
             }
             RefreshStatus();
@@ -74,14 +76,13 @@ namespace Recycli
         // Thanks to the MVVM Toolkit, this method will be called automatically when the SearchText property changes.
         partial void OnSearchTextChanged(string value)
         {
-            Guard.IsNotNull(logger);
             if (string.IsNullOrWhiteSpace(value))
             {
                 VisibleRecycleBinFiles = new List<RecycleFile>(AllRecycleBinFiles);
             }
             else
             {
-                logger.LogInformation("Recycli: OnSearchTextChanged: {value}", value);
+                _logger.LogInformation("Recycli: OnSearchTextChanged: {value}", value);
                 VisibleRecycleBinFiles = new List<RecycleFile>(
                     AllRecycleBinFiles.Where(f => f.Name.Contains(value, System.StringComparison.OrdinalIgnoreCase))
                 );

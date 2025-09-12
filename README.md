@@ -21,5 +21,12 @@ That's very likely, because I'm not a professional designer. The goal is to use 
 Recycli uses [Microsoft.Extensions.Logging](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging) for logging.  
 By default, logs are written to the debug output (viewable with DebugView from Sysinternals).
 
+## Used patterns / packages
+
+- MVVM pattern with [CommunityToolkit.Mvvm](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/)
+- Dependency Injection with [Microsoft.Extensions.DependencyInjection](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection) and [Microsoft.Hosting](https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host)
+- Logging with [Microsoft.Extensions.Logging](https://learn.microsoft.com/en-us/dotnet/core/extensions/logging)
+- COM interop with [Interop.Shell32](https://learn.microsoft.com/de-de/windows/win32/shell/versions)
+
 > [!NOTE]  
-> Some parts of this project were developed with the assistance of GitHub Copilot. (using as a Stackoverflow alternative but not as a vibe coding tool)
+> Some parts of this project were developed with the assistance of GitHub Copilot.
